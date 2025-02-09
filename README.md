@@ -1,6 +1,6 @@
 # Car Maintenance
 
-App providing features to organize maintenance of our cars. \
+App providing features to organize maintenance of our cars.
 
 -managing scheduled inspections and servicing \
 -sharing cars with other users \
