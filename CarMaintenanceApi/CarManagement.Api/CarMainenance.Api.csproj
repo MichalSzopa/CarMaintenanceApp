@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CarMaintenance.Service\CarMaintenance.Service.csproj" />
+    <ProjectReference Include="..\CarMaintenance.Shared\CarMaintenance.Shared.csproj" />
   </ItemGroup>
 
 </Project>

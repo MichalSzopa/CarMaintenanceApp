@@ -1,6 +1,7 @@
 ﻿using CarMaintenance.Database.Entities;
 using CarMaintenance.Repository;
 using CarMaintenance.Service.Interface;
+using CarMaintenance.Shared.Codes;
 using CarMaintenance.Shared.Dtos.Auth;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -27,8 +28,9 @@ public class AuthService(IUnitOfWork unitOfWork, IConfiguration configuration) :
 
 		var claims = new[]
 			{
-			new Claim(JwtRegisteredClaimNames.Sub, model.Email),
-			new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+			new Claim(Claims.UserEmail, model.Email),
+			new Claim(Claims.TokenIdentifier, Guid.NewGuid().ToString()),
+			new Claim(Claims.UserId, user.Id.ToString())
 		};
 
 		var token = new JwtSecurityToken(
