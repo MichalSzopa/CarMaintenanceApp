@@ -20,9 +20,24 @@ public class AuthController(IAuthService authService) : ControllerBase
   [HttpPost("Login")]
   public async Task<IActionResult> Login(LoginUserModel model)
   {
-    var token = await authService.LoginAsync(model);
-    return Ok(token);
+    try
+    {
+      var token = await authService.LoginAsync(model);
+      return Ok(token);
+    }
+    catch (Exception ex) // TODO
+    {
+      return Unauthorized();
+    }
   }
 
   // logout
+
+
+  //[Authorize]
+  //[HttpGet("TestAuthEndpoint")]
+  //public async Task<IActionResult> TestAuthMethod()
+  //{
+  //  return Ok("You are authorized");
+  //}
 }
