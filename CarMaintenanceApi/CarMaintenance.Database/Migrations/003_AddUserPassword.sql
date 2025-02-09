@@ -1,0 +1,1 @@
+﻿ALTER TABLE Users ADD Password NVARCHAR(255) NOT NULL;

@@ -1,13 +1,13 @@
 ﻿using CarMaintenance.Database.Entities;
 using CarMaintenance.Repository;
 using CarMaintenance.Service.Interface;
-using CarMaintenance.Shared.Dtos;
+using CarMaintenance.Shared.Dtos.Car;
 
 namespace CarMaintenance.Service.Service;
 
 public class CarService(IUnitOfWork unitOfWork) : ICarService
 {
-  public async Task<int> CreateCarAsync(CreateCar model, int ownerId)
+  public async Task<int> CreateCarAsync(CreateCarModel model, int ownerId)
   {
     var car = new Car
     {
@@ -48,11 +48,11 @@ public class CarService(IUnitOfWork unitOfWork) : ICarService
     }
   }
 
-  public async Task<CarDetails> GetCarDetailsAsync(int userId, int carId)
+  public async Task<CarDetailsModel> GetCarDetailsAsync(int userId, int carId)
   {
     var car = await unitOfWork.Cars.GetCarDetailsAsync(userId, carId);
 
-    var result = new CarDetails
+    var result = new CarDetailsModel
     {
       Make = car.Make,
       Model = car.Model,
@@ -65,7 +65,7 @@ public class CarService(IUnitOfWork unitOfWork) : ICarService
     if (car.CarInsurances.Count > 0)
     {
       var insurance = car.CarInsurances.FirstOrDefault();
-      result.Insurance = new CarInsuranceBasicData
+      result.Insurance = new CarInsuranceBasicDataModel
       {
         StartDate = insurance.StartDate,
         EndDate = insurance.EndDate,
@@ -77,11 +77,11 @@ public class CarService(IUnitOfWork unitOfWork) : ICarService
     return result;
   }
 
-  public async Task<List<CarList>> GetCarsAsync(int userId)
+  public async Task<List<CarListModel>> GetCarsAsync(int userId)
   {
     var cars = await unitOfWork.Cars.GetUserCarsAsync(userId);
 
-    var result = cars.Select(c => new CarList
+    var result = cars.Select(c => new CarListModel
     {
       Id = c.Id,
       Make = c.Make,

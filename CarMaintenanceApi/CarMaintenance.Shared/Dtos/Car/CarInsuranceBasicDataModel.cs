@@ -1,6 +1,6 @@
-﻿namespace CarMaintenance.Shared.Dtos;
+﻿namespace CarMaintenance.Shared.Dtos.Car;
 
-public class CarInsuranceBasicData
+public class CarInsuranceBasicDataModel
 {
   public string Provider { get; set; }
   public string PolicyNumber { get; set; }

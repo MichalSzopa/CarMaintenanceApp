@@ -1,5 +1,5 @@
 ﻿using CarMaintenance.Service.Interface;
-using CarMaintenance.Shared.Dtos;
+using CarMaintenance.Shared.Dtos.Car;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarMainenance.Api.Controllers;
@@ -28,7 +28,7 @@ public class CarsController(ICarService carService) : ControllerBase
 
   // create car
   [HttpPost("CreateCar")]
-  public async Task<IActionResult> CreateCar(CreateCar createCar)
+  public async Task<IActionResult> CreateCar(CreateCarModel createCar)
   {
     var userId = 1; // TODO HttpContext
     var result = await carService.CreateCarAsync(createCar, userId);

@@ -1,6 +1,6 @@
-﻿namespace CarMaintenance.Shared.Dtos;
+﻿namespace CarMaintenance.Shared.Dtos.Car;
 
-public class CarDetails
+public class CarDetailsModel
 {
   public string Make { get; set; }
   public string Model { get; set; }
@@ -8,6 +8,6 @@ public class CarDetails
   public string VIN { get; set; }
   public string Owner { get; set; }
   public int Mileage { get; set; }
-  public CarInsuranceBasicData Insurance { get; set; }
+  public CarInsuranceBasicDataModel Insurance { get; set; }
   // public List<UserBasicData> UsersWithAccess { get; set; }
 }

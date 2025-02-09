@@ -18,6 +18,10 @@ public class User
   [StringLength(50)]
   public string LastName { get; set; }
 
+  [Required]
+  [StringLength(255)]
+  public string Password { get; set; }
+
   public virtual ICollection<Car> OwnedCars { get; set; }
   public virtual ICollection<CarAccess> GrantedCarAccesses { get; set; }
 }

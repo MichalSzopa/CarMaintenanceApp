@@ -1,6 +1,6 @@
-﻿namespace CarMaintenance.Shared.Dtos;
+﻿namespace CarMaintenance.Shared.Dtos.Car;
 
-public class CarList
+public class CarListModel
 {
   public int Id { get; set; }
   public string Make { get; set; }

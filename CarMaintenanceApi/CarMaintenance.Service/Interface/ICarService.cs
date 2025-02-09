@@ -1,10 +1,10 @@
 ﻿namespace CarMaintenance.Service.Interface;
 
-using CarMaintenance.Shared.Dtos;
+using CarMaintenance.Shared.Dtos.Car;
 
 public interface ICarService
 {
-  Task<List<CarList>> GetCarsAsync(int userId);
-  Task<CarDetails> GetCarDetailsAsync(int userId, int carId);
-  Task<int> CreateCarAsync(CreateCar model, int ownerId);
+  Task<List<CarListModel>> GetCarsAsync(int userId);
+  Task<CarDetailsModel> GetCarDetailsAsync(int userId, int carId);
+  Task<int> CreateCarAsync(CreateCarModel model, int ownerId);
 }

@@ -1,6 +1,6 @@
-﻿namespace CarMaintenance.Shared.Dtos;
+﻿namespace CarMaintenance.Shared.Dtos.Car;
 
-public class UserBasicData
+public class UserBasicDataModel
 {
   public int Id { get; set; }
   public string FirstName { get; set; }

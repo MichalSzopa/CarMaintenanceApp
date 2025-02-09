@@ -1,12 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CarMaintenance.Service.Interface;
+using CarMaintenance.Shared.Dtos.Auth;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CarMainenance.Api.Controllers;
 
-[Route("api/[controller]")]
+[Route("[controller]")]
 [ApiController]
-public class AuthController : ControllerBase
+public class AuthController(IAuthService authService) : ControllerBase
 {
   // register
+  [HttpPost("RegisterUser")]
+  public async Task<IActionResult> RegisterUser(RegisterUserModel model)
+  {
+    await authService.RegisterUserAsync(model);
+    return Ok();
+  }
 
   // login
 
