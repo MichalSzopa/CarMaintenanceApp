@@ -2,8 +2,8 @@
 
 public enum EIssueStatus
 {
-  Reported,
-  InProgress,
-  Resolved,
-  Deferred
+	Reported,
+	InProgress,
+	Resolved,
+	Deferred
 }

@@ -2,8 +2,8 @@
 
 public enum EIssueUrgency
 {
-  Low,
-  Medium,
-  High,
-  Critical
+	Low,
+	Medium,
+	High,
+	Critical
 }

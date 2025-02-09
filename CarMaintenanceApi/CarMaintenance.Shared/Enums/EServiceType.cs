@@ -2,10 +2,10 @@
 
 public enum EServiceType
 {
-  Maintenance,
-  Repair,
-  Inspection,
-  TireChange,
-  TirePressureInspection,
-  Other
+	Maintenance,
+	Repair,
+	Inspection,
+	TireChange,
+	TirePressureInspection,
+	Other
 }

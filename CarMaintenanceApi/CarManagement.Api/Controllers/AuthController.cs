@@ -8,36 +8,36 @@ namespace CarMainenance.Api.Controllers;
 [ApiController]
 public class AuthController(IAuthService authService) : ControllerBase
 {
-  // register
-  [HttpPost("RegisterUser")]
-  public async Task<IActionResult> RegisterUser(RegisterUserModel model)
-  {
-    await authService.RegisterUserAsync(model);
-    return Ok();
-  }
+	// register
+	[HttpPost("RegisterUser")]
+	public async Task<IActionResult> RegisterUser(RegisterUserModel model)
+	{
+		await authService.RegisterUserAsync(model);
+		return Ok();
+	}
 
-  // login
-  [HttpPost("Login")]
-  public async Task<IActionResult> Login(LoginUserModel model)
-  {
-    try
-    {
-      var token = await authService.LoginAsync(model);
-      return Ok(token);
-    }
-    catch (Exception ex) // TODO
-    {
-      return Unauthorized();
-    }
-  }
+	// login
+	[HttpPost("Login")]
+	public async Task<IActionResult> Login(LoginUserModel model)
+	{
+		try
+		{
+			var token = await authService.LoginAsync(model);
+			return Ok(token);
+		}
+		catch (Exception ex) // TODO
+		{
+			return Unauthorized();
+		}
+	}
 
-  // logout
+	// logout
 
 
-  //[Authorize]
-  //[HttpGet("TestAuthEndpoint")]
-  //public async Task<IActionResult> TestAuthMethod()
-  //{
-  //  return Ok("You are authorized");
-  //}
+	//[Authorize]
+	//[HttpGet("TestAuthEndpoint")]
+	//public async Task<IActionResult> TestAuthMethod()
+	//{
+	//  return Ok("You are authorized");
+	//}
 }
