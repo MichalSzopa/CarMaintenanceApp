@@ -23,4 +23,16 @@ public class UserRepository(ICarMaintenanceDbContext dbContext) : IUserRepositor
 		var user = await dbContext.Users.FirstOrDefaultAsync(x => x.Email == email);
 		return user;
 	}
+
+	public async Task<User> GetUserById(int userId)
+	{
+		var user = await dbContext.Users.FirstOrDefaultAsync(x => x.Id == userId);
+		return user;
+	}
+
+	public async Task<User> GetUserByRefreshTokenAsync(string refreshToken)
+	{
+		var user = await dbContext.Users.FirstOrDefaultAsync(u => u.RefreshToken == refreshToken && u.RefreshTokenExpiry > DateTime.Now);
+		return user;
+	}
 }

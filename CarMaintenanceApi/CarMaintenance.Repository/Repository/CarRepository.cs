@@ -8,6 +8,7 @@ namespace CarMaintenance.Repository.Repository;
 
 public class CarRepository(ICarMaintenanceDbContext dbContext) : ICarRepository
 {
+	// TODO add asNoTracking to queries where tracking is not necessary
 	public async Task AddCarAsync(Car car)
 	{
 

@@ -1,5 +1,6 @@
 ﻿using CarMaintenance.Service.Interface;
 using CarMaintenance.Shared.Dtos.Auth;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarMainenance.Api.Controllers;
@@ -8,7 +9,7 @@ namespace CarMainenance.Api.Controllers;
 [ApiController]
 public class AuthController(IAuthService authService) : ControllerBase
 {
-	// register
+	[AllowAnonymous]
 	[HttpPost("RegisterUser")]
 	public async Task<IActionResult> RegisterUser(RegisterUserModel model)
 	{
@@ -16,14 +17,25 @@ public class AuthController(IAuthService authService) : ControllerBase
 		return Ok();
 	}
 
-	// login
+	[AllowAnonymous]
 	[HttpPost("Login")]
 	public async Task<IActionResult> Login(LoginUserModel model)
 	{
 		try
 		{
-			var token = await authService.LoginAsync(model);
-			return Ok(token);
+			var tokens = await authService.LoginAsync(model);
+
+			var cookieOptions = new CookieOptions
+			{
+				HttpOnly = true,
+				Secure = true,
+				SameSite = SameSiteMode.Strict,
+				Expires = DateTime.UtcNow.AddDays(7)
+			};
+
+			Response.Cookies.Append("refreshToken", tokens.RefreshToken, cookieOptions);
+
+			return Ok(tokens.AccessToken);
 		}
 		catch (Exception ex) // TODO
 		{
@@ -31,13 +43,32 @@ public class AuthController(IAuthService authService) : ControllerBase
 		}
 	}
 
-	// logout
+	[AllowAnonymous]
+	[HttpPost("refresh-token")]
+	public async Task<IActionResult> RefreshToken()
+	{
+		// Get refresh token from HTTP-only cookie
+		var refreshToken = Request.Cookies["refreshToken"];
+		if (string.IsNullOrEmpty(refreshToken))
+		{
+			return Unauthorized();
+		}
 
+		var newAccessToken = await authService.RefreshJwtToken(refreshToken);
+		if (newAccessToken == null)
+		{
+			return Unauthorized();
+		}
 
-	//[Authorize]
-	//[HttpGet("TestAuthEndpoint")]
-	//public async Task<IActionResult> TestAuthMethod()
-	//{
-	//  return Ok("You are authorized");
-	//}
+		return Ok(newAccessToken);
+	}
+
+	[Authorize]
+	[HttpPatch("Logout")]
+	public async Task<IActionResult> Logout()
+	{
+		var userId = HttpContext.GetUserId();
+		await authService.LogoutAsync(userId);
+		return Ok();
+	}
 }

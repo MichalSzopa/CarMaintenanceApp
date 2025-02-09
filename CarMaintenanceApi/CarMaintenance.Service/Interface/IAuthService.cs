@@ -5,6 +5,7 @@ namespace CarMaintenance.Service.Interface;
 public interface IAuthService
 {
 	Task RegisterUserAsync(RegisterUserModel model);
-	Task<string> LoginAsync(LoginUserModel model);
-	Task Logout(int userId);
+	Task<AccessTokensModel> LoginAsync(LoginUserModel model);
+	Task LogoutAsync(int userId);
+	Task<string?> RefreshJwtToken(string refreshToken);
 }
