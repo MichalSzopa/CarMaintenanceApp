@@ -18,7 +18,7 @@ public class CarServicing
   [Required]
   public DateTime ServiceDate { get; set; }
 
-  public int? Mileage { get; set; }
+  public int Mileage { get; set; }
 
   [Column(TypeName = "decimal(10,2)")]
   public decimal Cost { get; set; }

@@ -14,6 +14,8 @@ public class Car
   [StringLength(50)]
   public string Model { get; set; }
 
+  public int Mileage { get; set; }
+
   public int Year { get; set; }
 
   [StringLength(17)]

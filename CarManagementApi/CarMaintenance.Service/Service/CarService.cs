@@ -16,6 +16,7 @@ public class CarService(IUnitOfWork unitOfWork) : ICarService
       Year = model.Year,
       VIN = model.VIN.ToUpper(),
       OwnerId = ownerId,
+      Mileage = model.Mileage,
     };
 
     if (model.Insurance != null)
@@ -57,6 +58,7 @@ public class CarService(IUnitOfWork unitOfWork) : ICarService
       Model = car.Model,
       Year = car.Year,
       VIN = car.VIN,
+      Mileage = car.Mileage,
       Owner = $"{car.Owner.FirstName} {car.Owner.LastName}",
     };
 
@@ -81,6 +83,7 @@ public class CarService(IUnitOfWork unitOfWork) : ICarService
 
     var result = cars.Select(c => new CarList
     {
+      Id = c.Id,
       Make = c.Make,
       Model = c.Model,
       Year = c.Year,

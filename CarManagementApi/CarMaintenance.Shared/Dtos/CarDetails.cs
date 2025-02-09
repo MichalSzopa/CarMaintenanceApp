@@ -7,6 +7,7 @@ public class CarDetails
   public int Year { get; set; }
   public string VIN { get; set; }
   public string Owner { get; set; }
+  public int Mileage { get; set; }
   public CarInsuranceBasicData Insurance { get; set; }
   // public List<UserBasicData> UsersWithAccess { get; set; }
 }

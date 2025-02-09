@@ -1,6 +1,7 @@
 ﻿using CarMaintenance.Database;
 using CarMaintenance.Database.Entities;
 using CarMaintenance.Repository.Interface;
+using CarMaintenance.Shared.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarMaintenance.Repository.Repository;
@@ -9,8 +10,6 @@ public class CarRepository(ICarMaintenanceDbContext dbContext) : ICarRepository
 {
   public async Task AddCarAsync(Car car)
   {
-    await dbContext.Cars.AddAsync(car);
-    await dbContext.SaveChangesAsync();
 
     var carAccess = new CarAccess
     {
@@ -20,7 +19,19 @@ public class CarRepository(ICarMaintenanceDbContext dbContext) : ICarRepository
       ExpiryDate = null,
     };
 
-    await dbContext.CarAccesses.AddAsync(carAccess);
+    var initialService = new CarServicing
+    {
+      CarId = car.Id,
+      ServiceDate = DateTime.Now,
+      Description = "Car added to system",
+      Mileage = car.Mileage,
+      Type = EServiceType.Other,
+    };
+
+    car.GrantedAccesses = new List<CarAccess> { carAccess };
+    car.CarServices = new List<CarServicing> { initialService };
+
+    await dbContext.Cars.AddAsync(car);
   }
 
   public async Task<Car> GetCarDetailsAsync(int userId, int carId)
