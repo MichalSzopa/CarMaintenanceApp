@@ -1,3 +1,9 @@
+using CarMaintenance.Database;
+using CarMaintenance.Repository;
+using CarMaintenance.Service.Interface;
+using CarMaintenance.Service.Service;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,6 +13,14 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<CarMaintenanceDbContext>(options =>
+{
+  options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionString"), o => o.UseCompatibilityLevel(150));
+});
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<ICarService, CarService>();
 
 var app = builder.Build();
 
