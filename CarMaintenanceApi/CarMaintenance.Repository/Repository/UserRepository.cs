@@ -17,4 +17,10 @@ public class UserRepository(ICarMaintenanceDbContext dbContext) : IUserRepositor
 
     await dbContext.Users.AddAsync(user);
   }
+
+  public async Task<User> GetUserByEmailAsync(string email)
+  {
+    var user = await dbContext.Users.FirstOrDefaultAsync(x => x.Email == email);
+    return user;
+  }
 }

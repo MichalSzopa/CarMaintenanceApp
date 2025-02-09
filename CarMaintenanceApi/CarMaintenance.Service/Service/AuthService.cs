@@ -2,14 +2,24 @@
 using CarMaintenance.Repository;
 using CarMaintenance.Service.Interface;
 using CarMaintenance.Shared.Dtos.Auth;
+using System.Text.RegularExpressions;
 
 namespace CarMaintenance.Service.Service;
 
 public class AuthService(IUnitOfWork unitOfWork) : IAuthService
 {
-  public Task<string> Login(LoginUserModel model)
+  public async Task<string> LoginAsync(LoginUserModel model)
   {
-    throw new NotImplementedException();
+    var user = await unitOfWork.Users.GetUserByEmailAsync(model.Email.ToUpper());
+
+    if (user == null || !BCrypt.Net.BCrypt.Verify(model.Password, user.Password))
+    {
+      throw new Exception("Wrong email or password"); // TODO
+    }
+
+    // TODO authenticate/authorize and return token
+
+    return user.FirstName;
   }
 
   public Task Logout(int userId)
@@ -36,11 +46,20 @@ public class AuthService(IUnitOfWork unitOfWork) : IAuthService
 
   private void ValidatePasswordStrength(string password)
   {
-    // TODO
+    string pattern = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$";
+
+    if (!Regex.IsMatch(password, pattern))
+    {
+      throw new Exception("Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 digit and be at least 8 characters long"); // TODO
+    }
   }
 
   private void ValidateEmail(string email)
   {
-    // TODO
+    string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+    if (!Regex.IsMatch(email, pattern))
+    {
+      throw new Exception("Invalid email address"); // TODO
+    }
   }
 }

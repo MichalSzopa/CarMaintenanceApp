@@ -17,6 +17,12 @@ public class AuthController(IAuthService authService) : ControllerBase
   }
 
   // login
+  [HttpPost("Login")]
+  public async Task<IActionResult> Login(LoginUserModel model)
+  {
+    var token = await authService.LoginAsync(model);
+    return Ok(token);
+  }
 
   // logout
 }
