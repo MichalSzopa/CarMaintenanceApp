@@ -10,7 +10,7 @@ namespace CarMainenance.Api.Controllers;
 public class CarsController(ICarService carService) : ControllerBase
 {
 	// get car list
-	[Authorize]
+	//[Authorize]
 	[HttpGet("GetAllCarsForUser")]
 	public async Task<IActionResult> GetAllCarsForUser()
 	{
@@ -20,7 +20,7 @@ public class CarsController(ICarService carService) : ControllerBase
 	}
 
 	// get car details
-	[Authorize]
+	//[Authorize]
 	[HttpGet("GetCarDetails")]
 	public async Task<IActionResult> GetCarDetails(int carId)
 	{
@@ -30,7 +30,7 @@ public class CarsController(ICarService carService) : ControllerBase
 	}
 
 	// create car
-	[Authorize]
+	// [Authorize]
 	[HttpPost("CreateCar")]
 	public async Task<IActionResult> CreateCar(CreateCarModel createCar)
 	{

@@ -1,0 +1,13 @@
+<div class="container">
+  @if (car) {
+  <div class="card">
+    <h2>{{ car.make }} {{ car.model }}</h2>
+    <div class="details">
+      <p><strong>Year:</strong> {{ car.year }}</p>
+      <p><strong>Last Maintenance:</strong> {{ car.lastMaintenance | date }}</p>
+    </div>
+  </div>
+  } @else {
+  <p>Car not found</p>
+  }
+</div>

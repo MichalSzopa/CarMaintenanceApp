@@ -1,18 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
+import { TopBarComponent } from './components/top-bar/top-bar.component';
 
 @Component({
-  selector: 'app-root',
-  imports: [
-    RouterOutlet,
-    MatButtonModule,
-    MatCardModule,
-  ],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+	selector: 'app-root',
+	imports: [RouterOutlet, TopBarComponent],
+	templateUrl: './app.component.html',
+	styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'CarMaintenanceWeb';
+	title = 'CarMaintenanceWeb';
 }

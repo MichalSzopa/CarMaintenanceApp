@@ -1,0 +1,12 @@
+<div class="container">
+  <h2>My Cars</h2>
+  <div class="car-list">
+    @for (car of cars; track car.id) {
+    <div class="card" (click)="navigateToCar(car.id)" style="cursor: pointer">
+      <h3>{{ car.make }} {{ car.model }}</h3>
+      <p>Year: {{ car.year }}</p>
+      <p>Last Maintenance: {{ car.lastMaintenance | date }}</p>
+    </div>
+    }
+  </div>
+</div>
